@@ -5,21 +5,21 @@ services:
     container_name: dev_fastapi
     volumes:
       - ./app:/app
-    environment:
-      - APP_ENV=development
-      - ENVIRON=dev
-      - POSTGRES_SEVER=db
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-      - DB_SECRET_KEY=changeme
-      - LDAP_SEVER_HOST=[""]
-      - LDAP_SEVER_PORT=389
-      - LDAP_DN_BASE=
-      - ES_BASE_ENDPOINT=
-      - ES_INDEX=
-      - API_ACCESS_TOKEN=
-      - TZ=Asia/Tokyo
+    # environment:
+    #   - APP_ENV=development
+    #   - ENVIRON=dev
+    #   - POSTGRES_SEVER=db
+    #   - POSTGRES_USER=postgres
+    #   - POSTGRES_PASSWORD=postgres
+    #   - POSTGRES_DB=postgres
+    #   - DB_SECRET_KEY=changeme
+    #   - LDAP_SEVER_HOST=[""]
+    #   - LDAP_SEVER_PORT=389
+    #   - LDAP_DN_BASE=
+    #   - ES_BASE_ENDPOINT=
+    #   - ES_INDEX=
+    #   - API_ACCESS_TOKEN=
+    #   - TZ=Asia/Tokyo
     ports:
       - 8000:8000
     restart: always
@@ -31,6 +31,7 @@ services:
   db:
     image: postgres:15
     container_name: postgres-db
+    # hostname: pgsql-db
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     # ヘルスチェックを使ってPostgresのコンテナより先にFastAPIが起動しないようにする
@@ -42,9 +43,9 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=postgres
-      - TZ=Asia/Tokyo
-      - PGTZ=Asia/Tokyo
+      # - POSTGRES_DB=postgres
+      # - TZ=Asia/Tokyo
+      # - PGTZ=Asia/Tokyo
     ports:
       - 5432:5432
 
