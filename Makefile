@@ -24,3 +24,15 @@ exec-app:
 
 exec-psql:
 	docker compose exec -it db psql -U postgres
+
+current:
+	docker compose exec fastapi alembic current
+
+base:
+	docker compose exec fastapi alembic downgrade base
+
+head:
+	docker compose exec fastapi alembic upgrade head
+
+revision:
+	docker compose exec fastapi alembic revision --autogenerate -m "${CMT}"

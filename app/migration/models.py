@@ -1,8 +1,9 @@
 from datetime import datetime
 
-from sqlalchemy import create_engine, Column, String, Integer, Text, DateTime
+from sqlalchemy import create_engine, Column, String, Integer, Text, DateTime, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from core.config import get_env
+from sqlalchemy.orm import relationship
 
 # Engine の作成
 Engine = create_engine(
@@ -22,3 +23,13 @@ class User(BaseModel):
    password = Column(Text, nullable=False)
    created_at = Column(DateTime, default=datetime.now, nullable=False)
    updated_at = Column(DateTime, default=datetime.now, nullable=False)
+
+class Item(BaseModel):
+    __tablename__ = "items"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String, index=True)
+    description = Column(String, index=True)
+    owner_id = Column(Integer, ForeignKey("users.id"))
+
+    owner = relationship("User", back_populates="items")
